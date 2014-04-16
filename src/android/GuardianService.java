@@ -459,6 +459,7 @@ public class GuardianService extends Service {
                     Log.e(TAG, ex.getMessage());
                 }
             }
+			ble.endIbeaconDiscover();
 
             Log.d(TAG, "Thread End");
         }
