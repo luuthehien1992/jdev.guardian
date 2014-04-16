@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
  
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
-        id="jdev.cordova.bluetooth.ble"
+        id="jdev.guardian"
         version="0.1.0">
     <name>GuardianApp</name>
     <description>Guardian App</description>
@@ -11,7 +11,10 @@
     <js-module src="www/service.js" name="ServiceHelper">
         <clobbers target="window.service" />
     </js-module>
- 
+	<js-module src="www/ble.js" name="BLEHelper">
+        <clobbers target="window.ble" />
+    </js-module>
+	
     <!-- android -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
