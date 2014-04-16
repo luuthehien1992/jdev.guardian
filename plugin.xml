@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="jdev.cordova.bluetooth.ble"
+        version="0.1.0">
+    <name>GuardianApp</name>
+    <description>Guardian App</description>
+    <license>MIT</license>
+    <keywords>phonegap,guardian</keywords>
+ 
+    <js-module src="www/service.js" name="ServiceHelper">
+        <clobbers target="window.service" />
+    </js-module>
+ 
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="ServiceHelper">
+                <param name="android-package" value="jdev.guardian.service.ServiceHelper"/>
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.BLUETOOTH"/>
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+			<uses-permission android:name="android.permission.VIBRATE"/>
+        </config-file>
+		 <config-file target="AndroidManifest.xml" parent="/manifest/application">
+		   <service android:icon="@drawable/icon" android:label="GuardianService" android:name="jdev.guardian.service.GuardianService" />
+        </service>
+		  </config-file>
+        <source-file src="src/android/libs/gson-2.2.4.jar" target-dir="libs" />
+        <source-file src="src/android/GuardianService.java" target-dir="src/jdev/guardian/service" />
+		<source-file src="src/android/Result.java" target-dir="src/jdev/guardian/service" />
+        <source-file src="src/android/ResultStatus.java" target-dir="src/jdev/guardian/service" />
+		<source-file src="src/android/MACInfo.java" target-dir="src/jdev/guardian/service" />   		
+		<source-file src="src/android/ServiceHelper.java" target-dir="src/jdev/cordova/service" />  
+		<source-file src="src/android/FIRFilter.java" target-dir="src/jdev/guardian/core" /> 
+		<source-file src="src/android/KalmanFilter.java" target-dir="src/jdev/guardian/core" /> 
+		<source-file src="src/android/Calculator.java" target-dir="src/jdev/guardian/core" />   	
+		<source-file src="src/android/BLE.java" target-dir="src/jdev/cordova/bluetooth/ble" />   
+		<source-file src="src/android/BLEHelper.java" target-dir="src/jdev/cordova/bluetooth/ble" />   
+		<source-file src="src/android/IBeaconPacket.java" target-dir="src/jdev/cordova/bluetooth/ble" />   		
+    </platform>          
+</plugin>
