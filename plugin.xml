@@ -18,6 +18,9 @@
             <feature name="ServiceHelper">
                 <param name="android-package" value="jdev.guardian.service.ServiceHelper"/>
             </feature>
+			<feature name="BLEHelper">
+                <param name="android-package" value="jdev.cordova.bluetooth.ble.BLEHelper"/>
+            </feature>
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.BLUETOOTH"/>
