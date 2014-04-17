@@ -21,9 +21,6 @@ import android.os.Vibrator;
 
 import android.util.Log;
 
-import com.coolappz.HTML5Application.HTML5Application;
-import com.coolappz.HTML5Application.R;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -36,9 +33,13 @@ import java.lang.reflect.Type;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jdev.guardian.GuardianApp;
+import jdev.guardian.R;
 import jdev.guardian.core.Calculator;
 import jdev.guardian.core.FIRFilter;
 import jdev.guardian.core.KalmanFilter;
+
 import org.apache.cordova.*;
 
 /**
@@ -98,7 +99,7 @@ public class GuardianService extends Service {
     }
 
     private Notification createNotification(String contentTitle, String contentText, String ticker, int iconID) {
-        Intent intent = new Intent(getBaseContext(), HTML5Application.class);
+        Intent intent = new Intent(getBaseContext(), GuardianApp.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
 
         return createNotification(contentTitle, contentText, ticker, iconID, pendingIntent);
