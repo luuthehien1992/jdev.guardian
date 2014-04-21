@@ -11,40 +11,40 @@ package jdev.guardian.service;
  */
 public class MACInfo {
 
-    private String MAC;
-    private boolean Enable;
-    private String Name;
+    private String mac;
+    private boolean enable;
+    private String name;
 
     public MACInfo() {
     }
 
     public MACInfo(String MAC, String Name, boolean Enable) {
-        this.MAC = MAC;
-        this.Enable = Enable;
-        this.Name = Name;
+        this.mac = MAC;
+        this.enable = Enable;
+        this.name = Name;
     }
 
     public String getMAC() {
-        return MAC;
+        return mac;
     }
 
     public void setMAC(String MAC) {
-        this.MAC = MAC;
+        this.mac = MAC;
     }
 
     public boolean isEnable() {
-        return Enable;
+        return enable;
     }
 
     public void setEnable(boolean Enable) {
-        this.Enable = Enable;
+        this.enable = Enable;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String Name) {
-        this.Name = Name;
+        this.name = Name;
     }
 }
