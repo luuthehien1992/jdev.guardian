@@ -74,7 +74,7 @@ public class BLE {
             if (isIBeaconPacket(scanRecord)) {
                 synchronized (iBeaconPacket) {
                     long timestamp = System.currentTimeMillis() / 1000;
-                    iBeaconPacket = new IBeaconPacket(rssi, device.getAddress(), scanRecord[26], timestamp);
+                    iBeaconPacket = new IBeaconPacket(rssi, device.getAddress().replaceAll(":", "-"), scanRecord[26], timestamp);
                 }
             }
         }

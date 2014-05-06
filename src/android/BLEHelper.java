@@ -31,6 +31,8 @@ public class BLEHelper extends CordovaPlugin {
     Activity activity = null;
     Gson gson = null;
 
+    private static boolean isDiscovering = false;
+
     public BLEHelper() {
     }
 
@@ -91,11 +93,12 @@ public class BLEHelper extends CordovaPlugin {
     }
 
     private void isDiscovering(CallbackContext callbackContext) {
-        callbackContext.success(gson.toJson(mBluetoothAdapter.isDiscovering()));
+        callbackContext.success(gson.toJson(isDiscovering));
     }
 
     private void ibeaconDiscover(CallbackContext callbackContext) {
         if (mBluetoothAdapter.startLeScan(ibeaconDiscoverCallback)) {
+            isDiscovering = true;
             callbackContext.success();
         } else {
             callbackContext.error(0);
@@ -103,6 +106,8 @@ public class BLEHelper extends CordovaPlugin {
     }
 
     private void ibeaconEndDiscover(CallbackContext callbackContext) {
+        isDiscovering = false;
+
         mBluetoothAdapter.stopLeScan(ibeaconDiscoverCallback);
 
         callbackContext.success();
@@ -124,7 +129,7 @@ public class BLEHelper extends CordovaPlugin {
 
             if (isIBeaconPacket(scanRecord)) {
                 long timestamp = System.currentTimeMillis() / 1000;
-                iBeaconPacket = new IBeaconPacket(rssi, device.getAddress(), scanRecord[26], timestamp);
+                iBeaconPacket = new IBeaconPacket(rssi, device.getAddress().replaceAll(":", "-"), scanRecord[26], timestamp);
             }
         }
     };
@@ -136,7 +141,7 @@ public class BLEHelper extends CordovaPlugin {
         callbackContext.error(0);
     }
 
-	private boolean isIBeaconPacket(byte[] scanRecord) {
+    private boolean isIBeaconPacket(byte[] scanRecord) {
         try {
             if (scanRecord[2] == (byte) 0x4C && scanRecord[3] == (byte) 0x00 && scanRecord[4] == (byte) 0x02 && scanRecord[5] == (byte) 0x15) {
                 return true;
@@ -150,7 +155,7 @@ public class BLEHelper extends CordovaPlugin {
     private enum Action {
 
         IS_ENABLE("isEnable"),
-        IS_DISCOVERING("isDiscovery"),
+        IS_DISCOVERING("isDiscovering"),
         IBEACON_DISCOVER("ibeaconDiscover"),
         IBEACON_END_DISCOVER("ibeaconEndDiscover"),
         IBEACON_DISCOVER_FILTER("ibeaconDiscoverFiler"),

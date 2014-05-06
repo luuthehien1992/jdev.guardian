@@ -306,7 +306,9 @@ public class GuardianService extends Service {
 
         super.onDestroy();
 
-        showNotification(NOTIFICATION_END_SERVICE, NOTIFICATION_END_SERVICE, 0);
+        Notification notification = createNotification(NOTIFICATION_END_SERVICE, NOTIFICATION_END_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notification);
 
         Log.d(TAG, "Service End");
     }
@@ -460,7 +462,7 @@ public class GuardianService extends Service {
                     Log.e(TAG, ex.getMessage());
                 }
             }
-			ble.endIbeaconDiscover();
+            ble.endIbeaconDiscover();
 
             Log.d(TAG, "Thread End");
         }

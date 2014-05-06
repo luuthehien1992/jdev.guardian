@@ -52,9 +52,7 @@ public class ServiceHelper extends CordovaPlugin {
     }
 
     private void isRunning(CallbackContext callbackContext) {
-        int result = isRunning() ? 1 : 0;
-
-        callbackContext.success(result);
+        callbackContext.success(String.valueOf(isRunning()));
     }
 
     private boolean isRunning() {
