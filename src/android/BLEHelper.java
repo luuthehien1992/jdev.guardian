@@ -137,6 +137,7 @@ public class BLEHelper extends CordovaPlugin {
     private void getIBeaconPacket(CallbackContext callbackContext) throws JSONException {
         if (iBeaconPacket != null) {
             callbackContext.success(gson.toJson(iBeaconPacket));
+            iBeaconPacket = null;
         }
         callbackContext.error(0);
     }
