@@ -32,9 +32,13 @@
         </config-file>
 		<config-file target="AndroidManifest.xml" parent="/manifest/application">
 		   <service android:icon="@drawable/icon" android:label="GuardianService" android:name="jdev.guardian.service.GuardianService" />
+     	   <service android:icon="@drawable/icon" android:label="GuardianServiceRSSI" android:name="jdev.guardian.service.GuardianServiceRSSI" />
+     	   <service android:icon="@drawable/icon" android:label="GuardianServiceMetter" android:name="jdev.guardian.service.GuardianServiceMetter" />
 		</config-file>
         <source-file src="src/android/libs/gson-2.2.4.jar" target-dir="libs" />
         <source-file src="src/android/GuardianService.java" target-dir="src/jdev/guardian/service" />
+        <source-file src="src/android/GuardianServiceRSSI.java" target-dir="src/jdev/guardian/service" />
+        <source-file src="src/android/GuardianServiceMetter.java" target-dir="src/jdev/guardian/service" />
 		<source-file src="src/android/Result.java" target-dir="src/jdev/guardian/service" />
         <source-file src="src/android/ResultStatus.java" target-dir="src/jdev/guardian/service" />
 		<source-file src="src/android/MACInfo.java" target-dir="src/jdev/guardian/service" />   		

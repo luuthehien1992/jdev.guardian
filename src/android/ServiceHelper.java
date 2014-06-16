@@ -24,8 +24,11 @@ public class ServiceHelper extends CordovaPlugin {
         Action emAction = Action.fromString(action);
 
         switch (emAction) {
-            case START:
-                start(callbackContext, args.getString(0), args.getDouble(1), args.getDouble(2), args.getDouble(3), args.getDouble(4));
+            case START_RSSI:
+                startRSSI(callbackContext, args.getString(0), args.getDouble(1), args.getDouble(2), args.getDouble(3), args.getDouble(4));
+                return true;
+            case START_METTER:
+                startMetter(callbackContext, args.getString(0), args.getDouble(1), args.getDouble(2), args.getDouble(3), args.getDouble(4));
                 return true;
             case STOP:
                 stop();
@@ -67,10 +70,25 @@ public class ServiceHelper extends CordovaPlugin {
         }
     }
 
-    private void start(CallbackContext callbackContext, String macListJson, double warningRange, double maximumRange, double A1, double B1) {
+    private void startRSSI(CallbackContext callbackContext, String macListJson, double imme, double near, double mid, double far) {
         if (!isRunning()) {
             GuardianService.setActivity(cordova.getActivity());
-            serviceIntent = new Intent(cordova.getActivity().getBaseContext(), GuardianService.class);
+            serviceIntent = new Intent(cordova.getActivity().getBaseContext(), GuardianServiceRSSI.class);
+
+            serviceIntent.putExtra("MACList", macListJson);
+            serviceIntent.putExtra("imme", imme);
+            serviceIntent.putExtra("near", near);
+            serviceIntent.putExtra("mid", mid);
+            serviceIntent.putExtra("far", far);
+
+            cordova.getActivity().startService(serviceIntent);
+        }
+    }
+
+    private void startMetter(CallbackContext callbackContext, String macListJson, double warningRange, double maximumRange, double A1, double B1) {
+        if (!isRunning()) {
+            GuardianService.setActivity(cordova.getActivity());
+            serviceIntent = new Intent(cordova.getActivity().getBaseContext(), GuardianServiceMetter.class);
 
             serviceIntent.putExtra("MACList", macListJson);
             serviceIntent.putExtra("WarningRange", warningRange);
@@ -83,7 +101,8 @@ public class ServiceHelper extends CordovaPlugin {
 
     private enum Action {
 
-        START("start"),
+        START_RSSI("startRSSI"),
+        START_METTER("startMetter"),
         STOP("stop"),
         IS_RUNNING("isRunning"),
         SET_NOTIFICATION_CALLBACK("setNotificationCallback"),
