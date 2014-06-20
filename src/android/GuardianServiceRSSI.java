@@ -27,7 +27,7 @@ public class GuardianServiceRSSI extends GuardianService {
     protected double near;
     protected double mid;
     protected double far;
-    protected double deta = -5;
+    protected double deta = 0;
 
     protected void resultCallBack(MACInfo macInfo, double level) {
         Result result = new Result(ResultStatus.Missing, macInfo, level);
@@ -177,15 +177,15 @@ public class GuardianServiceRSSI extends GuardianService {
         }
 
         protected double calculateLevel(double rssi) {
-            if (rssi >= imme + deta) {
+            if (rssi >= imme + imme * 0.1) {
                 return 0;
             }
 
-            if (rssi < imme + deta && rssi >= near + deta) {
+            if (rssi < imme + imme * 0.1 && rssi >= near + near * 0.1) {
                 return 1;
             }
 
-            if (rssi < near + deta && rssi >= mid + deta) {
+            if (rssi < near + near * 0.1 && rssi >= mid + mid * 0.1) {
                 return 2;
             }
 
