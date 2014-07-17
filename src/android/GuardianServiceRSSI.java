@@ -27,7 +27,7 @@ public class GuardianServiceRSSI extends GuardianService {
     protected double near;
     protected double mid;
     protected double far;
-    protected double deta = 0;
+    protected double deta = 2;
 
     protected void resultCallBack(MACInfo macInfo, double level) {
         Result result = new Result(ResultStatus.Missing, macInfo, level);
@@ -151,7 +151,12 @@ public class GuardianServiceRSSI extends GuardianService {
                         } else {
                             String area = calculateArea(level);
 
-                            showNotification(macInfo.getName() + " " + area, macInfo.getName() + " " + area, idx);
+                            if (level >= 3) {
+                                showWarningNotification(macInfo.getName() + " " + area, macInfo.getName() + " " + area, idx);
+
+                            } else {
+                                showNotification(macInfo.getName() + " " + area, macInfo.getName() + " " + area, idx);
+                            }
                         }
                     } else {
                         resultCallBack(macInfo, level);
@@ -177,15 +182,27 @@ public class GuardianServiceRSSI extends GuardianService {
         }
 
         protected double calculateLevel(double rssi) {
-            if (rssi >= imme + imme * 0.1) {
+//            if (rssi >= imme + imme * 0.1) {
+//                return 0;
+//            }
+//
+//            if (rssi < imme + imme * 0.1 && rssi >= near + near * 0.1) {
+//                return 1;
+//            }
+//
+//            if (rssi < near + near * 0.1 && rssi >= mid + mid * 0.1) {
+//                return 2;
+//            }
+
+            if (rssi >= imme + deta) {
                 return 0;
             }
 
-            if (rssi < imme + imme * 0.1 && rssi >= near + near * 0.1) {
+            if (rssi < imme + deta && rssi >= near + deta) {
                 return 1;
             }
 
-            if (rssi < near + near * 0.1 && rssi >= mid + mid * 0.1) {
+            if (rssi < near + deta && rssi >= mid + deta) {
                 return 2;
             }
 

@@ -6,8 +6,8 @@ package jdev.guardian.core;
  */
 public class KalmanFilter {
 
-    private static final double Q = 1e-5;
-    private static final double R = 2;
+    private static final double Q = 1e-3;
+    private static final double R = 1;
     private static double xpre = 0;
     private static double Ppre = 1;
 
